@@ -1,0 +1,279 @@
+
+body {
+  padding: 0px;
+  margin: 0px 0px 100vh;
+  font-family:"Cambria"; 
+  font-size:1.24vw;
+  font-weight: 200;
+  overflow: hidden; 
+  background: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0.527) 10%, rgba(243, 243, 243, 0.75) 90%, rgb(243, 243, 243)), url("nyNite.webp");
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-attachment: fixed; 
+}
+
+#vizdiv {
+  position:fixed;
+  top:20vh;
+  left:10vw;
+}
+
+.sitemain {
+  margin-left: 10%;
+  margin-right: 10%;
+  overflow-x: hidden;
+}
+
+#textdiv {
+  z-index:-1;
+  max-width: 100vw !important;
+  left:0;
+  position:absolute !important;
+  padding-left:75vw !important;
+  padding-right:5vw !important;
+  top:0 !important;
+  height:100vh;
+  display:flex;
+  flex-direction: column;
+  align-items:stretch;
+}
+
+#cal-heatmap{
+  position:fixed;
+  top:12vh;
+  left:15vw;
+  margin:0;
+  padding:0;
+}
+
+h3 {
+  font-family:'Yu Gothic';
+  margin:1vh;
+  font-size: 20px;
+  font-style:normal;
+  font-weight: normal;
+  text-align: center;
+  color:#d9dee2;
+  stroke:black;
+  stroke-width: 1px;
+}
+  
+.selection {
+  display: inline-block;
+  width: 20%; 
+  height:100%;
+  margin: 0 5%;
+  text-align:center;
+  background-color: blue;
+  opacity: .4;
+  border-radius: 90%;
+}
+  
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 100%;
+  padding:none;
+  margin:none;
+}
+  
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch {
+  cursor: pointer;
+}
+
+.selector {
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height:100%;
+  transition: .4s;
+}
+    
+.mass {
+  background-color: blue;
+  opacity: .4;
+}
+  
+.selector:before {
+  position: absolute;
+  content: "";
+  height: 1.2em;
+  width: 1.2em;
+  left: -6%;
+  bottom: 0px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .selector:before {
+  transform: translateX(20px);
+}
+  
+circle {
+  cursor: pointer;
+  transition: opacity 750ms, visibility 750ms;
+}
+
+@keyframes pulse { 
+  	0% {
+		fill: rgba(122, 182, 217, 1);
+	}
+	
+	100% {
+		fill: rgba(255, 255, 0, 0.788);
+	}
+}
+
+.peeking {
+  animation-timing-function: linear;
+  animation: pulse 1s infinite alternate;
+}
+
+#d3container {
+  position:fixed;
+  left:2vw;
+  top:12vh;
+  width:15vw;
+}
+
+#d3container svg{
+  overflow:visible
+};
+
+.ch-plugin-calendar-label[data-key="top"] g rect{
+  width: 5vw !important;
+  padding:none;
+  margin:none;
+} 
+
+.ch-plugin-calendar-label{
+  display:inline;
+}
+
+#months{
+  display:flex;
+  justify-content: right;
+  font-size:20px !important;
+  color:#d9dee2;
+  stroke:black;
+  stroke-width:.3px;
+}
+
+#months span{
+  width:4vw;
+  text-align:center;
+}
+
+.ch-domain-text {
+  font-size:20px !important;
+  font-weight:bold;
+  color:#d9dee2;
+  stroke:black;
+  stroke-width:.3px;
+}
+
+#ch-plugin-legend {
+  display:flex;
+  justify-content: center;
+  padding-top:1vh;
+  color:#d9dee2;
+}
+
+#ch-tooltip{
+  font-size:15px !important;
+  color:white;
+}
+
+#ch-plugin-legend  text {
+  font-size:2em;
+  font-weight:500;
+}
+
+#ch-plugin-legend g text {
+  font-size:1.4em;
+  font-weight:bold !important;
+}
+
+.snapthat{
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+} 
+
+.snap {
+  scroll-snap-align: center none;
+}
+
+.flexspace{
+  min-height:100vh;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction: row;
+  align-items:stretch;
+  margin:auto;
+  align-items:center;
+}
+
+svg g{
+  opacity: .83;
+}
+
+.choices{
+  padding-top:.2em;
+  display:flex;
+  flex-wrap: nowrap;
+  width: 60%;
+  flex-direction:row;
+  margin:auto;
+}
+
+.tooltip{
+  font-size: .9em;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+.hideIt{
+  visibility:hidden;
+  opacity: 0;
+}
+
+#heatTitle{
+  margin:auto;
+  width:60vw;
+  line-height:125%;
+  position:relative;
+  left:5vw;
+  top:1vw;
+}
+
+#swarmText{
+  color: #d9dee2;
+  margin:auto;
+  position:fixed;
+  left:2vw;
+  text-align:center;
+  font-size:16px;
+}
+
+.center {
+  text-align:center;
+}
+
+#lastID{
+  white-space: nowrap;
+  text-align: center;
+  margin:auto;
+  display:flex;
+  flex-direction: column;
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <title>Data, Discovery, Disappointment</title>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="style.css">    
+  <script type="text/javascript" src="https://d3js.org/d3.v7.min.js"></script>
+
+  <script src="https://unpkg.com/cal-heatmap/dist/cal-heatmap.min.js"></script>
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/cal-heatmap/dist/plugins/Legend.min.js"></script>
+  <script src="https://unpkg.com/cal-heatmap/dist/plugins/Tooltip.min.js"></script>
+  <script src="https://unpkg.com/cal-heatmap/dist/plugins/CalendarLabel.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/cal-heatmap/dist/cal-heatmap.css"></script>
+ </head>
+
+<body>
+ <div class="sitemain">
+  <div style="position:fixed; ">
+  
+  <h3><b><div id="heatTitle">NYPD Shooting Incident Data - Introduced<br>NYC Shootings Incidents
+      </div></b></h3>
+</div>
+<br>
+<br>
+
+<div id="vizdiv">
+
+<!-- swarm placeholder -->
+<div id="cal-heatmap">
+ <!-- resizing workaround -->
+  <div id="months">
+    <span>JAN</span>
+    <span>FEB</span>
+    <span>MAR</span>
+    <span>APR</span>
+    <span>MAY</span>
+    <span>JUN</span>
+    <span>JUL</span>
+    <span>AUG</span>
+    <span>SEP</span>
+    <span>OCT</span>
+    <span>NOV</span>
+    <span>DEC</span>
+  </div>
+</div>
+</div>
+
+<!-- swarm title placeholder -->
+<div id="swarmText"><span id="swarmTitle"></span><span id="swarmNote"></span></div>
+<!-- swarm placeholder -->
+<div id="d3container"></div>
+
+<!-- enable snap-scroll for select contents -->
+<div id="textdiv" class="snapthat">
+
+   <div class="flexspace">
+   <div id="show1" class="changeTrip snap" preVar="Incidents1" preMetric=" shooting" maxRange="350" ticks="5">
+    <b>Trusting NYC Open Data</b>
+    <br>It said that NYPD Shooting Incident Data was a list of every shooting incident. Using that claim, this heatmap counts the 
+    entries to visualize the number of shootings by month.
+    <br><br>
+    <b>Footnote Corrections</b>
+    <br>The footnotes declare that the dataset is actually a list of victims injured in shootings.
+    <br><br>To find how many shootings resulted in injuries, the heatmap should count distinct keys.
+  </div>
+  </div>
+
+
+  <div class="flexspace">
+  <div id="show2" class="changeTrip snap" reset="yes" preVar="Incidents2" preMetric=" shooting" maxRange="350" ticks="5">
+  <b>Adjusting for the claims</b>
+   <br>
+    The heatmap changes when the footnotes are considered.
+    <br>
+    <div class="choices">
+      <span>Before</span><span class="selection"><label class="switch"><input id="IncidentsButton" type="checkbox"  onclick="IncidentsClick()" checked><span class="selector fixIncidents" ></span></label></span><span>After</span>
+     </div>
+     <br><br>
+    It provides hope that the dataset 
+    can be used to visualize data on mass shootings in NYC.
+    With the criteria that a mass shooting has 4 or more injured victims, 
+    the heatmap can be rebuilt to tell a more focused story.    
+  </div>
+  </div>
+
+
+  <div class="flexspace">
+  <div id="show3" class="changeTrip snap" preVar="Mass2" preMetric=" mass shooting" maxRange="15" ticks="3">
+  <b>Mass Shooting Summary</b>
+    <br>Using the footnotes as a guide, this heatmap presents mass shooting occurrances by month.
+    <br><br>The details behind this summary are concerning.    
+  </div>
+  </div>
+
+
+  <div class="flexspace">
+    <div class="changeTrip snap"  preMetric="bubbles1">
+      <b>An Unlikely Trend</b>
+      <br>The circles represent each mass shooting and provide details when hovering over incidents.
+      It's difficult to find an odd number of victims.
+      <br><br><div class="center">(How many can you spot?)</div>
+          <div class="choices">
+          <span>Blend</span><span class="selection"><label class="switch"><input id="BubID1"  onclick="ToggleB1()" type="checkbox"><span class="selector murder"></span></label></span><span>Reveal</span>
+          </div>
+       <br><br>
+       The data is still dominated by even numbers after increasing the threshold to 5 victims.
+       <br>    
+         <div class="choices">
+         <span style="padding-left:15%">4+</span><span class="selection"><label class="switch"><input id="BubID4" type="checkbox"  onclick="hideFour()"><span class="selector murder"  ></span></label></span><span>5+</span>
+         </div> 
+       <br>
+       <b>A Rapid Decline</b>
+       <br>The dataset doubles the number records when incidents have conflicting murder classifications.
+       A mass shooting in the data (4+ victims) may not be a mass shooting in reality (2+ victims).
+  </div>
+  </div>
+
+
+  <div class="flexspace">
+  <div id="show4" class="changeTrip snap" reset="yes" preVar="Mass3" preMetric=" mass shooting" maxRange="15" ticks="3">
+    <b>Adjusting for the discovery</b>
+    <br>The heatmap now accounts for the conflicting murder classifications and shows
+     a starkly different portrayal of mass shooting occurrances.
+     <br>
+         <div class="choices">
+         <span>Before</span><span class="selection"><label class="switch"><input id="MassButton" type="checkbox"  onclick="MassClick()" checked><span class="selector fixMass" ></span></label></span><span>After</span>
+         </div> 
+    <br><br>
+    The circles now represent incidents which still have 4 or more victims.
+    <br>
+    The disparity remains.<br>
+         <div class="changeTrip"  preMetric="bubbles2">
+         <div class="choices">
+         <span>Blend</span><span class="selection"><label class="switch"><input id="BubID2" type="checkbox"  onclick="ToggleB2()"><span class="selector murder"  ></span></label></span><span>Reveal</span>
+         </div> 
+        </div>
+  </div>
+  </div>
+
+
+  <div class="flexspace">
+  <div id="showx" class="snap">
+    <b>Overlooking Step 1</b>
+    <br>The dataset has no duplicates, which is easily overlooked as a sign of clean data. But it means that there's never 
+    an incident where multiple victims have identical demographics. 
+    Reality tells us that this is far from the truth.
+    <br><br>
+    <b>The solution</b>
+    <br>
+    To transform the data so it provides an accurate count, you must (externally) gather the age, sex, and race of each victim and perpetrator involved in that 
+    shooting. All further steps become obselete.
+    <br><br>
+    <b>The conundrum</b>
+    <br>
+    To count individuals in the dataset, you must have detailed information about 
+    the incidents in question. Once that data is collected, there are two options:
+    <br><br>
+    <span id="lastID" class="center" >
+    <span>Use the good data to fix bad data.</span>
+    <b>OR</b>
+    <span>Use the good data.</span></span>
+   </div>
+   </div>
+ 
+</div>
+</div>
+
+<script type="text/javascript" src="main.js"></script>
+
+</body>
+</html>
